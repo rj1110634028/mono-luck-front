@@ -1,13 +1,13 @@
 import MenuIcon from "@material-ui/icons/Menu";
 
 import {
-  Box,
   AppBar,
   Toolbar,
   Typography,
   IconButton,
 } from "@material-ui/core";
-function MenuBar() {
+
+function MenuBar({ barName }){
   return (
     
       <AppBar class="bar">
@@ -21,7 +21,7 @@ function MenuBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6">鎖櫃登記</Typography>
+          <Typography variant="h6">{ barName }</Typography>
         </Toolbar>
       </AppBar>
   );

@@ -1,44 +1,42 @@
 import * as React from "react";
 import "./App.css";
-import MenuBar from "./components/MenuBar"
-import FinishBtn from "./components/FinishBtn"
-import LinkRole from "./components/LinkRole"
-import TextField_phone from "./components/TextField_phone";
-import ToggleBtn from "./components/ToggleBtn";
-import Divider from "@mui/material/Divider";
-import TextField_phone_error from "./components/TextField_phone_error";
-import Container from '@mui/material/Container';
-import CheckRole from "./components/CheckRole";
-import Box from '@mui/material/Box';
+import axios from "./axios.config";
 
-function App() {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-    <MenuBar />
-    <Container >
-      
-      <div class="input_num_text">請點擊欲租借的鎖櫃編號，可選三項，須至少輸入一項</div>
-      <div>
-        <ToggleBtn />
-      </div>
-      <div>選擇鎖櫃:</div>
-      <div>
-        <Divider variant="middle" />
-      </div>
-      <div>
-        <TextField_phone />
-      </div>
-      <div>
-        <CheckRole />
-      </div>
-      <div>
-        <LinkRole />
-      </div>
-      <div>
-        <FinishBtn />
-      </div>
-      </Container>
-      </Box>
-  );
+class App extends React.Component{
+
+  
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+    const json = JSON.stringify({ phone: this.state.value, priority: '3/5/7' });
+
+    axios.post("api/lockerRegister",JSON.parse(json))
+    .then( (response) => console.log(response))
+    .catch( (error) => console.log(error));
+  }
+  
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
 }
 export default App;
