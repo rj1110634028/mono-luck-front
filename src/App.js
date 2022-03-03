@@ -31,7 +31,7 @@ class App extends React.Component{
   handleSubmit2(event) {
     alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
-    const json = JSON.stringify({ phone : this.state.value,locker_id : ["0091394055"]});
+    const json = JSON.stringify({ phone : this.state.value});
 
     axios.post("api/Locker",JSON.parse(json))
     .then( (response) => {document.getElementById("test").innerHTML=JSON.stringify(response) })
