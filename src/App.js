@@ -11,6 +11,7 @@ class App extends React.Component{
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit2 = this.handleSubmit2.bind(this);
   }
 
   handleChange(event) {
@@ -20,22 +21,42 @@ class App extends React.Component{
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
-    const json = JSON.stringify({ phone: this.state.value, priority: '3/5/7' });
+    const json = JSON.stringify({ phone : this.state.value,locker_id : ["0091394055"]});
 
-    axios.post("api/lockerRegister",JSON.parse(json))
-    .then( (response) => console.log(response))
-    .catch( (error) => console.log(error));
+    axios.post("api/Registion",JSON.parse(json))
+    .then( (response) => {document.getElementById("test").innerHTML=JSON.stringify(response)})
+    .catch( (error) => {console.log(error)});
+  }
+  
+  handleSubmit2(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+    const json = JSON.stringify({ phone : this.state.value,locker_id : ["0091394055"]});
+
+    axios.post("api/Locker",JSON.parse(json))
+    .then( (response) => {document.getElementById("test").innerHTML=JSON.stringify(response) })
+    .catch( (error) => {console.log(error)});
   }
   
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            新增登記:
+            <input type="text" value={this.state.value} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+        <form onSubmit={this.handleSubmit2}>
+          <label>
+            查詢鎖櫃:
+            <input type="text" value={this.state.value} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+        <p id="test"></p>
+      </div>
     );
   }
 }

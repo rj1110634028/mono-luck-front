@@ -2,7 +2,7 @@ import Axios from "axios"
 
 const axios = (baseURL) => {
     const instance = Axios.create({
-            baseURL: baseURL || 'http://localhost:5000', //back-end
+            baseURL: baseURL || 'http://localhost:8000', //back-end
             headers: { 'Content-Type': 'application/json' },
             timeout: 1000,
     });
